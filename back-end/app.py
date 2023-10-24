@@ -1,7 +1,9 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+CORS(app)
 app_name = "main"
 
 # Connect to Database
@@ -40,7 +42,7 @@ def list_all():
 
     person_list = [person.to_dict() for person in people]
 
-    return jsonify(data=person_list)
+    return jsonify(person_list)
 
 
 # HTTP POST - Create Person / HTTP GET - Read Person
@@ -58,7 +60,7 @@ def post_new_person(person_id=None):
             return jsonify(error=f"Person with id {person_id} not found."), 404
 
         # If the user exists, return the user object as a JSON response
-        return jsonify(data=person.to_dict())
+        return jsonify(person.to_dict())
     elif request.method == "POST":
         # Get the JSON data from the request body
         data = request.get_json()
@@ -74,7 +76,7 @@ def post_new_person(person_id=None):
         db.session.commit()
 
         # Return the updated user object as a JSON response
-        return jsonify(data=person.to_dict())
+        return jsonify(created=person.to_dict()), 201
 
 
 # HTTP PATCH - Update Person
@@ -95,7 +97,7 @@ def update_person(person_id):
 
         # Commit the changes to the database
         db.session.commit()
-        return jsonify(data=person.to_dict())
+        return jsonify(updated=person.to_dict())
 
     return {"error": f"Person with id {person_id} not found."}, 404
 
@@ -113,7 +115,7 @@ def delete_cafe(person_id):
     # Delete the user from the database
     db.session.delete(person)
     db.session.commit()
-    return jsonify(message="Person deleted successfully")
+    return jsonify(), 204
 
 
 if __name__ == "__main__":
