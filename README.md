@@ -11,7 +11,9 @@ Execute os seguintes comandos para preparar a base de dados pelo Docker. O build
 
 Para iniciar o servidor:
 
-- `flask run`
+1. Crie e ative um ambiente virtual
+2. `pip install -r requirements.txt`
+3. `flask run`
 
 ## Front-end
 
