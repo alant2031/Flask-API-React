@@ -9,6 +9,14 @@ Execute os seguintes comandos para preparar a base de dados pelo Docker. O build
 1. `docker build -t mysql8 .`
 2. `docker-compose up -d`
 
+Caso precise consultar o banco segue as credenciais:
+
+- Endereço: localhost
+- Porta: 3306
+- Usuário: root
+- Senha: qwerty
+- Database: apidb
+
 Para iniciar o servidor:
 
 1. Crie e ative um ambiente virtual
